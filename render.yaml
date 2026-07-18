@@ -1,0 +1,67 @@
+services:
+  # ========== BACKEND (Node.js API) ==========
+  - type: web
+    name: dgw-autospa-backend
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: PORT
+        value: 5000
+      # ⚠️ Do NOT commit real secrets to this file. Set actual values in the
+      # Render dashboard (Environment tab) instead — leave these as
+      # placeholders here, or better, delete the "value" lines entirely and
+      # Render will prompt you to fill them in when you create the service.
+      - key: MONGODB_URI
+        value: REPLACE_WITH_YOUR_MONGODB_CONNECTION_STRING
+      - key: JWT_SECRET
+        value: REPLACE_WITH_A_NEW_RANDOM_SECRET
+      - key: JWT_EXPIRE
+        value: 30d
+      - key: JWT_REFRESH_SECRET
+        value: REPLACE_WITH_A_NEW_RANDOM_SECRET
+      - key: EMAIL_USER
+        value: REPLACE_WITH_YOUR_SENDING_EMAIL
+      - key: EMAIL_PASS
+        value: REPLACE_WITH_YOUR_EMAIL_APP_PASSWORD
+      - key: SUPER_ADMIN_EMAIL
+        value: REPLACE_WITH_ADMIN_NOTIFICATION_EMAIL
+      - key: COMPANY_EMAIL
+        value: REPLACE_WITH_COMPANY_EMAIL
+      # Set these AFTER your frontend is deployed and you know its real URL.
+      - key: FRONTEND_URL
+        value: REPLACE_WITH_YOUR_FRONTEND_URL
+      - key: ADMIN_URL
+        value: REPLACE_WITH_YOUR_FRONTEND_URL
+      - key: MAX_FILE_SIZE
+        value: 5242880
+      - key: ALLOWED_FILE_TYPES
+        value: image/jpeg,image/png,image/webp
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX
+        value: 500
+      - key: CLOUDINARY_CLOUD_NAME
+        value: REPLACE_WITH_YOUR_CLOUDINARY_CLOUD_NAME
+      - key: CLOUDINARY_API_KEY
+        value: REPLACE_WITH_YOUR_CLOUDINARY_API_KEY
+      - key: CLOUDINARY_API_SECRET
+        value: REPLACE_WITH_YOUR_CLOUDINARY_API_SECRET
+
+  # ========== FRONTEND (React static site) ==========
+  - type: static
+    name: dgw-autospa-frontend
+    env: static
+    rootDir: .                # adjust if your frontend is in a subfolder (e.g., "frontend")
+    buildCommand: npm install && npm run build
+    publishDir: dist          # or "build" for CRA
+    envVars:
+      # Set this to your backend's real deployed URL once it's live.
+      - key: VITE_API_URL
+        value: REPLACE_WITH_YOUR_BACKEND_URL
+      # For Create React App – uncomment if needed
+      # - key: REACT_APP_API_URL
+      #   value: REPLACE_WITH_YOUR_BACKEND_URL
+    # No routes/rewrites needed – your frontend code already uses the
+    # VITE_API_URL environment variable above for every API call.
