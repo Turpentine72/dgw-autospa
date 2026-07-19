@@ -2,7 +2,7 @@ import React, { memo, useMemo, useState, useEffect, useCallback, useRef } from '
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import useSettings from '../hooks/useSettings';
-import { formatBusinessHours } from '../utils/formatHours';
+import { formatBusinessHours } from '../admin/utils/formatHours';
 import { 
   Car, Clock, Search, ChevronRight, Disc, Sparkles, Gauge, 
   CheckCircle, Shield, Wrench, Zap, Star, ArrowRight 
