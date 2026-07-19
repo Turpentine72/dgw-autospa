@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import useSettings from '../hooks/useSettings';
-import { formatPromotionHours } from '../utils/formatHours';
+import { formatPromotionHours } from '../admin/utils/formatHours';
 import {
   Calendar, Clock, User, Mail, Phone, Gift, Send, CheckCircle,
   AlertCircle, ArrowRight, MapPin, Car, Sparkles, Check, Star,

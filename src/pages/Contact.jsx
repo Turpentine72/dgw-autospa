@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import SEO from '../components/SEO';
 import useSettings from '../hooks/useSettings';
-import { formatBusinessHours } from '../utils/formatHours';
+import { formatPromotionHours } from '../admin/utils/formatHours';
 import { MapPin, Phone, Mail, Clock, Send, MessageSquare, User, AtSign, ChevronRight, CheckCircle, AlertCircle, Wrench, ArrowRight, Sparkles } from 'lucide-react';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || '';
