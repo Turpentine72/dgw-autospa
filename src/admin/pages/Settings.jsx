@@ -176,6 +176,14 @@ const BusinessSettings = ({ settings, onChange }) => {
           </div>
         </div>
         <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">WhatsApp Number</label>
+          <div className="relative">
+            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
+            <input type="tel" value={settings.whatsapp || ''} onChange={(e) => onChange(prev => ({ ...prev, whatsapp: e.target.value }))} placeholder="Leave blank to use Phone Number above" className="w-full pl-9 pr-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
+          </div>
+          <p className="text-xs text-gray-400 mt-1">Used by the floating WhatsApp button. Include country code, e.g. +2347025887213.</p>
+        </div>
+        <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Website</label>
           <div className="relative">
             <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
@@ -558,7 +566,7 @@ function Settings() {
 
   // Current editable settings
   const [businessSettings, setBusinessSettings] = useState({
-    businessName: '', tagline: '', email: '', phone: '', website: '', address: '', description: '', logo: null,
+    businessName: '', tagline: '', email: '', phone: '', whatsapp: '', website: '', address: '', description: '', logo: null,
     instagram: '', facebook: '', tiktok: ''
   });
   const [hoursSettings, setHoursSettings] = useState({});

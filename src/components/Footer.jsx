@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useSettings from '../hooks/useSettings';
+import { formatBusinessHours } from '../utils/formatHours';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const { business } = useSettings();
+  const { business, hours } = useSettings();
   const businessName = business.businessName || 'DGW Autospa';
 
   const socialLinks = [
@@ -175,7 +176,7 @@ const Footer = () => {
                 <svg className="w-5 h-5 text-blue-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
-                <span className="text-blue-100">Mon-Sat: 9AM - 7PM</span>
+                <span className="text-blue-100">{formatBusinessHours(hours, { short: true })}</span>
               </li>
               <li className="flex gap-3">
                 <svg className="w-5 h-5 text-blue-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

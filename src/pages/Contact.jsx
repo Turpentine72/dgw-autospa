@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import SEO from '../components/SEO';
 import useSettings from '../hooks/useSettings';
+import { formatBusinessHours } from '../utils/formatHours';
 import { MapPin, Phone, Mail, Clock, Send, MessageSquare, User, AtSign, ChevronRight, CheckCircle, AlertCircle, Wrench, ArrowRight, Sparkles } from 'lucide-react';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || '';
@@ -12,7 +13,7 @@ function Contact() {
   const [formStatus, setFormStatus] = useState({ submitted: false, success: false, message: '' });
   const [loading, setLoading] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);   // ← new
-  const { business } = useSettings();
+  const { business, hours } = useSettings();
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -59,7 +60,7 @@ function Contact() {
       }
     } catch (error) {
       console.error('Error sending message:', error);
-      setFormStatus({ submitted: true, success: false, message: '⚠️ Failed to send message. Please call us directly at +234 702 588 7213.' });
+      setFormStatus({ submitted: true, success: false, message: `⚠️ Failed to send message. Please call us directly at ${business.phone || '+234 702 588 7213'}.` });
     } finally {
       setLoading(false);
       setTimeout(() => setFormStatus({ submitted: false, success: false, message: '' }), 5000);
@@ -70,7 +71,7 @@ function Contact() {
     { icon: MapPin, title: "Visit Us", details: business.address, link: "https://maps.google.com/?q=4+Ibrahim+Odofin+Street+Idado+Estate+Lekki+Lagos", linkText: "Get Directions" },
     { icon: Phone, title: "Call Us", details: business.phone || '+234 702 588 7213', link: `tel:${(business.phone || '+2347025887213').replace(/\s/g, '')}`, linkText: "Call Now" },
     { icon: Mail, title: "Email Us", details: business.email || 'deepgleamonwheels@gmail.com', link: `https://mail.google.com/mail/?view=cm&fs=1&to=${business.email || 'deepgleamonwheels@gmail.com'}`, linkText: "Send Email" },
-    { icon: Clock, title: "Working Hours", details: "Monday - Saturday: 9:00 AM - 7:00 PM\nSunday: Closed", link: null, linkText: null }
+    { icon: Clock, title: "Working Hours", details: formatBusinessHours(hours), link: null, linkText: null }
   ];
 
   const serviceOptions = [

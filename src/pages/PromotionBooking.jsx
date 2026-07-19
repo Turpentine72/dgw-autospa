@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import useSettings from '../hooks/useSettings';
+import { formatPromotionHours } from '../utils/formatHours';
 import {
   Calendar, Clock, User, Mail, Phone, Gift, Send, CheckCircle,
   AlertCircle, ArrowRight, MapPin, Car, Sparkles, Check, Star,
@@ -12,13 +13,13 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 
 function PromotionBooking() {
   const [formData, setFormData] = useState({
-    name: '', email: '', phone: '', date: '', time: '', notes: '', promoCode: ''
+    name: '', email: '', phone: '', date: '', time: '', notes: ''
   });
   const [formStatus, setFormStatus] = useState({ submitted: false, success: false, message: '' });
   const [loading, setLoading] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);   // ← new
 
-  const { business } = useSettings();
+  const { business, promotion } = useSettings();
 
   // ---------- Saturday guard ----------
   const today = new Date();
@@ -38,8 +39,8 @@ function PromotionBooking() {
     e.preventDefault();
 
     // Required fields check
-    if (!formData.name || !formData.email || !formData.date || !formData.time || !formData.promoCode) {
-      setFormStatus({ submitted: true, success: false, message: 'Please fill in all required fields including the promo code.' });
+    if (!formData.name || !formData.email || !formData.date || !formData.time) {
+      setFormStatus({ submitted: true, success: false, message: 'Please fill in all required fields.' });
       setTimeout(() => setFormStatus({ submitted: false, success: false, message: '' }), 5000);
       return;
     }
@@ -66,8 +67,7 @@ function PromotionBooking() {
           customerPhone: formData.phone || '',
           date: formData.date,
           time: formData.time,
-          notes: formData.notes,
-          promoCode: formData.promoCode.toUpperCase()
+          notes: formData.notes
         })
       });
       const data = await response.json();
@@ -78,7 +78,7 @@ function PromotionBooking() {
           message: '✓ Booking confirmed! We\'ll see you on Saturday for your FREE Wheel Service.'
         });
         // Reset form and checkbox after successful submission
-        setFormData({ name: '', email: '', phone: '', date: '', time: '', notes: '', promoCode: '' });
+        setFormData({ name: '', email: '', phone: '', date: '', time: '', notes: '' });
         setAcceptedTerms(false);
       } else {
         throw new Error(data.message || 'Booking failed');
@@ -128,7 +128,7 @@ function PromotionBooking() {
               FREE <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-blue-200">WHEEL SERVICE</span>
             </h1>
             <p className="text-lg text-blue-200 max-w-2xl mx-auto">
-              Every Saturday • 10AM - 4PM
+              {formatPromotionHours(promotion)}
             </p>
           </div>
         </section>
@@ -193,18 +193,11 @@ function PromotionBooking() {
                       </div>
                     </div>
                     <div>
-                      <label className="block text-blue-200 font-semibold mb-2">Promo Code *</label>
-                      <div className="relative">
-                        <Gift className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-blue-300" />
-                        <input
-                          type="text"
-                          name="promoCode"
-                          value={formData.promoCode}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full pl-10 pr-4 py-3 bg-blue-700/50 border border-blue-500/30 rounded-lg text-white placeholder-blue-300 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 transition-all"
-                          placeholder="Enter promo code (e.g. MYFREEWHEEL)"
-                        />
+                      <div className="flex items-center gap-2 px-4 py-3 bg-blue-700/40 border border-blue-500/30 rounded-lg">
+                        <Gift className="w-5 h-5 text-blue-300 shrink-0" />
+                        <p className="text-blue-100 text-sm">
+                          The Free Wheel promotion is applied automatically to this booking — no code needed.
+                        </p>
                       </div>
                     </div>
                     <div className="grid md:grid-cols-2 gap-5">
@@ -263,8 +256,8 @@ function PromotionBooking() {
                   <Calendar className="w-12 h-12 text-blue-300 mb-4" />
                   <h2 className="text-2xl font-bold text-white mb-2">Booking Opens on Saturday</h2>
                   <p className="text-blue-200 text-sm max-w-md">
-                    The free wheel service promotion is only available on Saturdays between 10AM - 4PM.
-                    Please come back on a Saturday to book your slot.
+                    The free wheel service promotion is only available {formatPromotionHours(promotion)}.
+                    Please come back then to book your slot.
                   </p>
                   <p className="text-blue-300 text-xs mt-4">
                     Next Saturday: {nextSaturday.toLocaleDateString()}
@@ -283,7 +276,7 @@ function PromotionBooking() {
                     <Sparkles className="w-8 h-8 text-yellow-400" />
                   </div>
                   <h3 id='hero-head' className="text-xl font-bold text-white mb-2">Limited Offer!</h3>
-                  <p className="text-blue-200 text-sm">Every Saturday • 10AM - 4PM</p>
+                  <p className="text-blue-200 text-sm">{formatPromotionHours(promotion)}</p>
                 </div>
 
                 <div className="bg-blue-800/30 rounded-2xl p-6 border border-blue-500/30 hover:border-blue-400/60 transition-all">

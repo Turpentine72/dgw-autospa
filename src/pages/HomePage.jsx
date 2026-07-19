@@ -1,6 +1,8 @@
 import React, { memo, useMemo, useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import useSettings from '../hooks/useSettings';
+import { formatBusinessHours } from '../utils/formatHours';
 import { 
   Car, Clock, Search, ChevronRight, Disc, Sparkles, Gauge, 
   CheckCircle, Shield, Wrench, Zap, Star, ArrowRight 
@@ -91,6 +93,7 @@ const TestimonialCard = memo(function TestimonialCard({ testimonial }) {
 });
 
 function HomePage() {
+  const { business, hours } = useSettings();
   const [services, setServices] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [stats, setStats] = useState({ totalBookings: 0, averageRating: 0, totalReviews: 0, totalCustomers: 0 });
@@ -179,7 +182,7 @@ function HomePage() {
             <div className="text-white flex flex-col items-start space-y-6 py-12 lg:py-0">
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
                 <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                <span className="uppercase tracking-widest text-sm font-semibold">LAGOS • MON-SAT • 9AM-7PM</span>
+                <span className="uppercase tracking-widest text-sm font-semibold">LAGOS • {formatBusinessHours(hours, { short: true }).toUpperCase()}</span>
               </div>
               <h1 id='hero-head' className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight text-white drop-shadow-lg">
                 SMART DRIVE
@@ -228,8 +231,23 @@ function HomePage() {
           <div className="text-white space-y-6">
             <SectionBadge text="About Us" />
             <h2 id='hero-head' className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight">EXPERIENCE THE<span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-white to-blue-200">ART OF AUTOMOTIVE</span>REJUVENATION</h2>
-            <p className="text-blue-100 text-lg leading-relaxed">At DGW AUTOSPA, we understand the importance of a well-maintained vehicle. That's why we offer a comprehensive range of services designed to keep your car in top condition.</p>
-            <p className="text-blue-200 leading-relaxed">Our team of skilled technicians uses state-of-the-art equipment and premium products to deliver exceptional results. From routine maintenance to specialized detailing, we treat every vehicle with the care it deserves.</p>
+            {business.description ? (
+              <>
+                <p className="text-blue-100 text-lg leading-relaxed whitespace-pre-line">
+                  {business.description.length > 320 ? `${business.description.slice(0, 320).trim()}…` : business.description}
+                </p>
+                {business.description.length > 320 && (
+                  <Link to="/about" className="inline-flex items-center gap-2 text-blue-300 font-semibold hover:text-white transition-colors">
+                    Read More <ArrowRight className="w-4 h-4" />
+                  </Link>
+                )}
+              </>
+            ) : (
+              <>
+                <p className="text-blue-100 text-lg leading-relaxed">At {business.businessName || 'DGW AUTOSPA'}, we understand the importance of a well-maintained vehicle. That's why we offer a comprehensive range of services designed to keep your car in top condition.</p>
+                <p className="text-blue-200 leading-relaxed">Our team of skilled technicians uses state-of-the-art equipment and premium products to deliver exceptional results. From routine maintenance to specialized detailing, we treat every vehicle with the care it deserves.</p>
+              </>
+            )}
             <ul className="flex flex-wrap gap-6 pt-4">
               <li className="flex items-center gap-2 text-blue-200"><CheckCircle className="w-5 h-5 text-blue-300" /><span>Premium Products</span></li>
               <li className="flex items-center gap-2 text-blue-200"><CheckCircle className="w-5 h-5 text-blue-300" /><span>Expert Technicians</span></li>

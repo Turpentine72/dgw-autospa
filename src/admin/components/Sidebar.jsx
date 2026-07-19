@@ -44,7 +44,7 @@ const Sidebar = () => {
     { path: '/admin/reviews', name: 'Reviews', icon: Star, permission: 'Manage Reviews' },
     { path: '/admin/team', name: 'Team', icon: Users, permission: 'Manage Team' },
     { path: '/admin/promotion-bookings', name: 'Promotions', icon: Gift, permission: 'Manage Promotion Bookings' },
-    { path: '/admin/promo-codes', name: 'Promo Codes', icon: Tag, permission: 'Manage Promotion Bookings' },
+    { path: '/admin/promotion-settings', name: 'Promotion Settings', icon: Tag, permission: 'Manage Promotion Bookings' },
     { path: '/admin/reports', name: 'Reports', icon: BarChart3, permission: 'View Reports' },
     { path: '/admin/admin-users', name: 'Admin Users', icon: Shield, permission: 'Manage Admins' },
     // 👇 NEW – Legal Pages

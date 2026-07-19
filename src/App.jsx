@@ -6,6 +6,7 @@ import PublicLayout from './components/PublicLayout';
 
 // Public Pages (with layout)
 import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
 import ServicesPage from './pages/ServicesPage';
 import GalleryPage from './pages/GalleryPage';
 import Testimonials from './pages/Testimonials';
@@ -37,7 +38,7 @@ import PromotionBookingsAdmin from './admin/pages/PromotionBookings';
 import Reports from './admin/pages/Reports';
 import AdminUsers from './admin/pages/AdminUsers';
 import Settings from './admin/pages/Settings';
-import AdminPromoCodes from './admin/pages/AdminPromoCodes';
+import PromotionSettings from './admin/pages/PromotionSettings';
 import LegalAdmin from './admin/pages/Legal';  // 👈 NEW
 
 function ScrollToTop() {
@@ -57,6 +58,7 @@ function App() {
         <Route element={<PublicLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/services" element={<ServicesPage />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/teams" element={<TeamPage />} />
@@ -86,7 +88,7 @@ function App() {
           <Route path="team" element={<AdminTeam />} />
           <Route path="contacts" element={<AdminContacts />} />
           <Route path="promotion-bookings" element={<PromotionBookingsAdmin />} />
-          <Route path="promo-codes" element={<AdminPromoCodes />} />
+          <Route path="promotion-settings" element={<PromotionSettings />} />
           <Route path="reports" element={<Reports />} />
           <Route path="admin-users" element={<AdminUsers />} />
           <Route path="settings" element={<Settings />} />

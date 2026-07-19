@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import useSettings from '../hooks/useSettings';
+import { formatBusinessHours } from '../utils/formatHours';
 import { Calendar, Clock, User, Mail, Phone, Car, MessageSquare, CheckCircle, MapPin, Send, Info, ArrowRight, Award, Shield } from 'lucide-react';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || '';
@@ -15,7 +16,7 @@ function BookService() {
   const [formLoading, setFormLoading] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const abortRef = useRef(null);
-  const { business } = useSettings();
+  const { business, hours } = useSettings();
 
   const timeSlots = ["09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"];
 
@@ -299,7 +300,7 @@ function BookService() {
                     </div>
                     <div className="min-w-0 flex-1">
                       <h3 id='hero-head' className="text-lg sm:text-xl font-bold text-white mb-1 sm:mb-2">Opening Hours</h3>
-                      <p className="text-blue-200 text-xs sm:text-sm">Monday - Saturday: 9:00 AM - 7:00 PM<br />Sunday: Closed</p>
+                      <p className="text-blue-200 text-xs sm:text-sm">{formatBusinessHours(hours)}</p>
                     </div>
                   </div>
                 </div>
