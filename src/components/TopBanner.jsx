@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Gift, Clock } from "lucide-react";
 import useSettings from "../hooks/useSettings";
-import { formatPromotionHours } from "../utils/formatHours";
+import { formatBusinessHours } from '../admin/utils/formatHours';
 
 export function TopBanner() {
   const { promotion, loading } = useSettings();

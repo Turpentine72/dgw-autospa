@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useSettings from '../hooks/useSettings';
-import { formatBusinessHours } from '../utils/formatHours';
+import { formatBusinessHours } from '../admin/utils/formatHours';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
