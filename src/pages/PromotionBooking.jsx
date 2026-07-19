@@ -306,7 +306,7 @@ function PromotionBooking() {
                 <div className="bg-blue-800/30 rounded-2xl p-6 border border-blue-500/30 hover:border-blue-400/60 transition-all">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-blue-600/30 to-blue-700/30 rounded-xl flex items-center justify-center flex-shrink-0"><Phone className="w-6 h-6 text-blue-300" /></div>
-                    <div><h3 id='hero-head' className="text-xl font-bold text-white mb-2">Need Help?</h3><p className="text-blue-200 text-sm mb-2">Call us for assistance:</p><a href={`tel:${business.phone.replace(/\s/g, '')}`} className="text-blue-300 font-semibold hover:text-blue-200 transition-colors">{business.phone}</a></div>
+                    <div><h3 id='hero-head' className="text-xl font-bold text-white mb-2">Need Help?</h3><p className="text-blue-200 text-sm mb-2">Call us for assistance:</p><a href={`tel:${(business.phone || '+2347025887213').replace(/\s/g, '')}`} className="text-blue-300 font-semibold hover:text-blue-200 transition-colors">{business.phone || '+234 702 588 7213'}</a></div>
                   </div>
                 </div>
                 <div className="bg-blue-800/30 rounded-2xl p-6 border border-blue-500/30 hover:border-blue-400/60 transition-all">

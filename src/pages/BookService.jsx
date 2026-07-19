@@ -307,8 +307,8 @@ function BookService() {
                 <div className="bg-gradient-to-r from-blue-800/40 to-blue-700/40 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-blue-500/30 text-center">
                   <h3 id='hero-head' className="text-base sm:text-lg font-bold text-white mb-1 sm:mb-2">Need Immediate Assistance?</h3>
                   <p className="text-blue-200 text-xs sm:text-sm mb-3 sm:mb-4">Call us for urgent bookings or inquiries.</p>
-                  <a href={`tel:${business.phone.replace(/\s/g, '')}`} className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all font-medium text-sm sm:text-base">
-                    <Phone className="w-4 h-4" />{business.phone}
+                  <a href={`tel:${(business.phone || '+2347025887213').replace(/\s/g, '')}`} className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all font-medium text-sm sm:text-base">
+                    <Phone className="w-4 h-4" />{business.phone || '+234 702 588 7213'}
                   </a>
                 </div>
 

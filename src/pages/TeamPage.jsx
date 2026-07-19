@@ -73,7 +73,7 @@ function TeamPage() {
 
   const handlePhoneClick = (e, phone) => {
     e.preventDefault();
-    window.location.href = `tel:${(phone || business.phone).replace(/\s/g, '')}`;
+    window.location.href = `tel:${(phone || business.phone || '+2347025887213').replace(/\s/g, '')}`;
   };
 
   return (

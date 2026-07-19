@@ -68,8 +68,8 @@ function Contact() {
 
   const contactInfo = [
     { icon: MapPin, title: "Visit Us", details: business.address, link: "https://maps.google.com/?q=4+Ibrahim+Odofin+Street+Idado+Estate+Lekki+Lagos", linkText: "Get Directions" },
-    { icon: Phone, title: "Call Us", details: business.phone, link: `tel:${business.phone.replace(/\s/g, '')}`, linkText: "Call Now" },
-    { icon: Mail, title: "Email Us", details: business.email, link: `https://mail.google.com/mail/?view=cm&fs=1&to=${business.email}`, linkText: "Send Email" },
+    { icon: Phone, title: "Call Us", details: business.phone || '+234 702 588 7213', link: `tel:${(business.phone || '+2347025887213').replace(/\s/g, '')}`, linkText: "Call Now" },
+    { icon: Mail, title: "Email Us", details: business.email || 'deepgleamonwheels@gmail.com', link: `https://mail.google.com/mail/?view=cm&fs=1&to=${business.email || 'deepgleamonwheels@gmail.com'}`, linkText: "Send Email" },
     { icon: Clock, title: "Working Hours", details: "Monday - Saturday: 9:00 AM - 7:00 PM\nSunday: Closed", link: null, linkText: null }
   ];
 
