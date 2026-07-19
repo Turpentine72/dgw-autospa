@@ -1,7 +1,7 @@
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "REPLACE_WITH_YOUR_BACKEND_URL/api/$1" },
-    { "source": "/uploads/(.*)", "destination": "REPLACE_WITH_YOUR_BACKEND_URL/uploads/$1" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/api/(.*)", "destination": "https://dgw-autospa-backend.onrender.com/api/$1" },
+    { "source": "/uploads/(.*)", "destination": "https://dgw-autospa-backend.onrender.com/uploads/$1" },
+    { "source": "/((?!assets/).*)", "destination": "/index.html" }
   ]
 }
