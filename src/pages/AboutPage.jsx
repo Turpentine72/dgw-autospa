@@ -20,7 +20,7 @@ const AboutPage = () => {
           <span className="inline-block px-4 py-1.5 rounded-full bg-blue-800/60 text-blue-200 text-sm font-semibold tracking-wide uppercase mb-6">
             About Us
           </span>
-          <h1 className="text-4xl sm:text-5xl font-black leading-tight mb-8">
+          <h1 id='hero-head' className="text-4xl sm:text-5xl font-black leading-tight mb-8">
             About {business.businessName || 'DGW Autospa'}
           </h1>
 
@@ -45,28 +45,28 @@ const AboutPage = () => {
             <div className="flex gap-4 bg-blue-900/40 border border-blue-800/60 rounded-xl p-5">
               <Clock className="w-6 h-6 text-blue-300 shrink-0" />
               <div>
-                <p className="font-semibold text-white mb-1">Business Hours</p>
+                <p id='hero-head' className="font-semibold text-white mb-1">Business Hours</p>
                 <p className="text-blue-200 text-sm">{formatBusinessHours(hours)}</p>
               </div>
             </div>
             <div className="flex gap-4 bg-blue-900/40 border border-blue-800/60 rounded-xl p-5">
               <MapPin className="w-6 h-6 text-blue-300 shrink-0" />
               <div>
-                <p className="font-semibold text-white mb-1">Address</p>
+                <p id='hero-head' className="font-semibold text-white mb-1">Address</p>
                 <p className="text-blue-200 text-sm">{business.address}</p>
               </div>
             </div>
             <div className="flex gap-4 bg-blue-900/40 border border-blue-800/60 rounded-xl p-5">
               <Phone className="w-6 h-6 text-blue-300 shrink-0" />
               <div>
-                <p className="font-semibold text-white mb-1">Phone</p>
+                <p id='hero-head' className="font-semibold text-white mb-1">Phone</p>
                 <p className="text-blue-200 text-sm">{business.phone}</p>
               </div>
             </div>
             <div className="flex gap-4 bg-blue-900/40 border border-blue-800/60 rounded-xl p-5">
               <Mail className="w-6 h-6 text-blue-300 shrink-0" />
               <div>
-                <p className="font-semibold text-white mb-1">Email</p>
+                <p id='hero-head' className="font-semibold text-white mb-1">Email</p>
                 <p className="text-blue-200 text-sm break-all">{business.email}</p>
               </div>
             </div>
