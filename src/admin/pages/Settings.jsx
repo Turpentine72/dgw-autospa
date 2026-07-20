@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { Building2, Clock, Bell, Shield, Save, Upload, X, Check, MapPin, Phone, Mail, Globe, Camera, RotateCcw, Eye, EyeOff, UserCog, User } from 'lucide-react';
 import SEO from '../../components/SEO';
-import HoursSettings, { withDefaultHours } from '..admin/components/HoursSettings';
+import HoursSettings, { withDefaultHours } from '../components/HoursSettings';
 
 // ------------------------------
 // API Base URL from environment variable
