@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { Building2, Clock, Bell, Shield, Save, Upload, X, Check, MapPin, Phone, Mail, Globe, Camera, RotateCcw, Eye, EyeOff, UserCog, User } from 'lucide-react';
 import SEO from '../../components/SEO';
+import HoursSettings, { withDefaultHours } from '..admin/components/HoursSettings';
 
 // ------------------------------
 // API Base URL from environment variable
@@ -31,7 +32,6 @@ const MailSettings = () => {
   const fetchCurrent = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      // ✅ Use environment variable
       const res = await fetch(`${API_BASE_URL}/api/settings/mail-settings`, { headers: { 'Authorization': `Bearer ${token}` } });
       const data = await res.json();
       if (data.success) {
@@ -48,7 +48,6 @@ const MailSettings = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('adminToken');
-      // ✅ Use environment variable
       const res = await fetch(`${API_BASE_URL}/api/settings/mail-settings`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -215,36 +214,6 @@ const BusinessSettings = ({ settings, onChange }) => {
   );
 };
 
-// ==================== Hours Settings ====================
-const HoursSettings = ({ hours, onChange }) => {
-  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  const handleToggle = (day) => { onChange(prev => ({ ...prev, [day]: { ...prev[day], isOpen: !prev[day].isOpen } })); };
-  const handleTimeChange = (day, field, value) => { onChange(prev => ({ ...prev, [day]: { ...prev[day], [field]: value } })); };
-  return (
-    <div className="space-y-4">
-      {days.map(day => (
-        <div key={day} className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-          <div className="w-28"><span className="font-medium text-gray-900 dark:text-white">{day}</span></div>
-          <label className="flex items-center gap-2 cursor-pointer">
-            <div className={`relative w-10 h-5 rounded-full transition-colors ${hours[day]?.isOpen ? 'bg-gray-700 dark:bg-gray-600' : 'bg-gray-400 dark:bg-gray-600'}`}>
-              <input type="checkbox" checked={hours[day]?.isOpen} onChange={() => handleToggle(day)} className="sr-only" />
-              <div className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full transition-transform ${hours[day]?.isOpen ? 'translate-x-5' : 'translate-x-0'}`} />
-            </div>
-            <span className="text-sm text-gray-700 dark:text-gray-300">{hours[day]?.isOpen ? 'Open' : 'Closed'}</span>
-          </label>
-          {hours[day]?.isOpen && (
-            <div className="flex items-center gap-3">
-              <input type="time" value={hours[day]?.open || '09:00'} onChange={(e) => handleTimeChange(day, 'open', e.target.value)} className="px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
-              <span className="text-gray-500 dark:text-gray-400">to</span>
-              <input type="time" value={hours[day]?.close || '18:00'} onChange={(e) => handleTimeChange(day, 'close', e.target.value)} className="px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
-  );
-};
-
 // ==================== Notifications Settings ====================
 const NotificationsSettings = ({ notifications, onChange }) => {
   const handleToggle = (key) => { onChange(prev => ({ ...prev, [key]: !prev[key] })); };
@@ -292,7 +261,6 @@ const SecuritySettings = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('adminToken');
-      // ✅ Use environment variable
       const response = await fetch(`${API_BASE_URL}/api/settings/change-password`, {
         method: 'PUT', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ currentPassword, newPassword })
@@ -365,7 +333,6 @@ const ProfileSettings = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('adminToken');
-      // ✅ Use environment variable
       const res = await fetch(`${API_BASE_URL}/api/settings/profile`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -437,7 +404,6 @@ const EmailChangeSettings = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('adminToken');
-      // ✅ Use environment variable
       const res = await fetch(`${API_BASE_URL}/api/auth/change-email-request`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -456,7 +422,6 @@ const EmailChangeSettings = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('adminToken');
-      // ✅ Use environment variable
       const res = await fetch(`${API_BASE_URL}/api/auth/change-email-confirm`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -522,7 +487,6 @@ const AdminEmailSettings = () => {
   const fetchCurrentEmail = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      // ✅ Use environment variable
       const res = await fetch(`${API_BASE_URL}/api/settings/super-admin-email`, { headers: { 'Authorization': `Bearer ${token}` } });
       const data = await res.json();
       if (data.success) { setCurrentEmail(data.email); setSuperAdminEmail(data.email); }
@@ -536,7 +500,6 @@ const AdminEmailSettings = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('adminToken');
-      // ✅ Use environment variable
       const res = await fetch(`${API_BASE_URL}/api/settings/super-admin-email`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ superAdminEmail }) });
       const data = await res.json();
       if (data.success) { setMessage('Notification email updated successfully!'); setCurrentEmail(superAdminEmail); setTimeout(() => setMessage(''), 3000); }
@@ -585,13 +548,12 @@ function Settings() {
     setLoading(true);
     try {
       const token = localStorage.getItem('adminToken');
-      // ✅ Use environment variable
       const response = await fetch(`${API_BASE_URL}/api/settings`, { headers: { 'Authorization': `Bearer ${token}` }, signal: controller.signal });
       const data = await response.json();
       if (data.success && data.data) {
         const s = data.data;
         const b = s.business || {};
-        const h = s.hours || {};
+        const h = withDefaultHours(s.hours || {});
         const n = s.notifications || {};
         setBusinessSettings(b);
         setHoursSettings(h);
@@ -627,7 +589,6 @@ function Settings() {
   const handleSaveSettings = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      // ✅ Use environment variable
       const response = await fetch(`${API_BASE_URL}/api/settings`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
