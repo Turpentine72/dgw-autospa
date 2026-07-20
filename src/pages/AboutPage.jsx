@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import useSettings from '../hooks/useSettings';
-import { formatPromotionHours } from '../admin/utils/formatHours';
+import { formatBusinessHours } from '../admin/utils/formatHours';
 import { CheckCircle, MapPin, Phone, Mail, Clock, ArrowRight } from 'lucide-react';
 
 const AboutPage = () => {

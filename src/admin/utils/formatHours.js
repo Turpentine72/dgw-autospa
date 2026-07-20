@@ -4,9 +4,15 @@
 //   - General Business Hours  (Settings > Business Settings > Hours tab)
 //   - Free Wheel Promotion Hours (Settings > Promotion Settings)
 // These must never be derived from one another.
+//
+// IMPORTANT: day keys here are capitalized ('Monday', 'Tuesday', ...) to
+// exactly match what the admin HoursSettings component in Settings.jsx
+// actually saves to the database. A previous version of this file used
+// lowercase keys, which silently never matched — hours always displayed as
+// "Closed" no matter what was saved. Keep these in sync.
 
-const DAY_ORDER = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-const DAY_ABBR = { monday: 'Mon', tuesday: 'Tue', wednesday: 'Wed', thursday: 'Thu', friday: 'Fri', saturday: 'Sat', sunday: 'Sun' };
+const DAY_ORDER = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const DAY_ABBR = { Monday: 'Mon', Tuesday: 'Tue', Wednesday: 'Wed', Thursday: 'Thu', Friday: 'Fri', Saturday: 'Sat', Sunday: 'Sun' };
 
 /** "14:00" -> "2:00 PM" */
 export function to12Hour(time24) {
@@ -20,7 +26,7 @@ export function to12Hour(time24) {
 }
 
 /**
- * Turns the per-day { monday: { isOpen, open, close }, ... } object from
+ * Turns the per-day { Monday: { isOpen, open, close }, ... } object from
  * Settings > Hours into a compact human-readable summary, grouping
  * consecutive days that share the same open/close time.
  * e.g. "Mon - Sat: 8:00 AM - 7:00 PM" or "Mon - Fri: 9AM-6PM, Sat: 10AM-2PM, Sun: Closed"
@@ -29,6 +35,11 @@ export function formatBusinessHours(hours, { short = false } = {}) {
   if (!hours || Object.keys(hours).length === 0) return 'Hours not set';
 
   const days = DAY_ORDER.map(d => ({ key: d, ...(hours[d] || { isOpen: false }) }));
+
+  // If literally nothing is marked open anywhere, treat it the same as "not set"
+  // rather than confidently showing "Closed" for a business that just hasn't
+  // configured hours yet.
+  if (!days.some(d => d.isOpen)) return 'Hours not set';
 
   // Group consecutive days with identical open/close/isOpen state
   const groups = [];
