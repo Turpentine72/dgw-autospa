@@ -92,7 +92,7 @@ function App() {
           <Route path="reports" element={<Reports />} />
           <Route path="admin-users" element={<AdminUsers />} />
           <Route path="settings" element={<Settings />} />
-          <Route path="legal" element={<LegalAdmin />} />   {/* 👈 NEW */}
+          <Route path="legal" element={<LegalAdmin />} />  
         </Route>
 
         {/* Catch all */}
